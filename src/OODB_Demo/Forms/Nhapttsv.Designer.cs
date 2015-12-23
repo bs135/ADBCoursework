@@ -1,4 +1,4 @@
-﻿namespace courcework
+﻿namespace OODBDemo
 {
     partial class Nhapttsv
     {

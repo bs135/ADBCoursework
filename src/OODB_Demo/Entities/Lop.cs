@@ -8,7 +8,7 @@ using LinqToExcel;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace courcework
+namespace OODBDemo
 {
     class Lop
     {

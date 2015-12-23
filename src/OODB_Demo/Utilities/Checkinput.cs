@@ -10,7 +10,8 @@ using Db4objects.Db4o.Linq;
 using LinqToExcel;
 using System.Globalization;
 using System.Text.RegularExpressions;
-namespace courcework
+using OODBDemo.Entities;
+namespace OODBDemo
 {
     class Checkinput
     {

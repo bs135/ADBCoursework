@@ -10,7 +10,8 @@ using System.Windows.Forms;
 using Db4objects.Db4o.Linq;
 using LinqToExcel;
 using System.Globalization;
-namespace courcework
+
+namespace OODBDemo
 {
     public partial class Nhapttsv : Form
     {

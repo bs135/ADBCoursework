@@ -9,7 +9,7 @@ using Db4objects.Db4o.Linq;
 using LinqToExcel;
 using System.Globalization;
 using System.Windows.Forms;
-namespace courcework
+namespace OODBDemo
 {
     class Sinhvien : NguoiI
     {

@@ -14,7 +14,8 @@ using Db4objects.Db4o.Config;
 using Db4objects.Db4o.CS.Config;
 using OfficeOpenXml;
 using System.IO;
-namespace courcework
+using OODBDemo.Entities;
+namespace OODBDemo
 {
     class ketnoicsdl
     {
