@@ -9,47 +9,22 @@ using System.Windows.Forms;
 using Db4objects.Db4o.Linq;
 using LinqToExcel;
 using System.Globalization;
-using OfficeOpenXml;
-using System.IO;
 using System.Text.RegularExpressions;
-using OODBDemo.Entities;
-namespace OODBDemo
+namespace courcework
 {
     class Checkinput
     {
-        public void taoexcelfilesv()
+        public int kiemtragiatrirong(string giatri)
         {
-            FileInfo newFile = new FileInfo(@"C:\Sinhvien.xlsx");
-            // FileInfo newFile_template = new FileInfo(@"C:\template\mauimportsv.xlsx");
-            try
-            {
-                ExcelPackage xlPackage = new ExcelPackage(newFile);//         
-                ExcelWorksheet worksheet = xlPackage.Workbook.Worksheets.Add("Sheet1");
-                worksheet.Cell(1, 1).Value = "Ma";
-                worksheet.Cell(1, 2).Value = "Hoten";
-                worksheet.Cell(1, 3).Value = "Ngaysinh";
-                worksheet.Cell(1, 4).Value = "Gioitinh";
-                worksheet.Cell(1, 5).Value = "Diachi";
-                worksheet.Cell(1, 6).Value = "Dienthoai";
-                worksheet.Cell(1, 7).Value = "Malop";
-                worksheet.Cell(1, 8).Value = "Bacdaotao";
-                worksheet.Cell(1, 9).Value = "Khoahoc";
-                worksheet.Cell(1, 10).Value = "Khoa";
-                worksheet.Cell(1, 11).Value = "Nganhhoc";
-                xlPackage.Save();
-            }
-            catch
-            {
-                MessageBox.Show("bạn đã tao file Sinhvien.xlsx nay trong ổ C:/ rồi ,muốn tạo lại bạn hãy xóa nó và thực hiện lại");
-            }
+            if (giatri.Trim() == "")
+                return 1;
+            else return 0;
+        
         }
-
-
-
         public string kiemtranull(object c)
         {
-            if (c == null)
-                return "gia tri null";
+            if (c ==null)
+                return "";
             else return c.ToString();
         }
         public int kiemtrangay(string ngay)
@@ -57,21 +32,31 @@ namespace OODBDemo
             DateTime Test;
             if (DateTime.TryParse(ngay, out Test))
             {
-                return 1; // MessageBox.Show(Test.ToString());
+               return 1; // MessageBox.Show(Test.ToString());
             }
             else
             { return 0; }
-
+           
         }
         //tat cac cac ma:nguoi,gv,sinhvien,monhoc
         public void kiemtra_ma(int ma)
-        {
-
+        { 
+        
         }
         public int kiemtra_dienthoai(String dienthoai)
         {
             Regex regex = new Regex(@"[0-9]+");
             if (regex.IsMatch(dienthoai) == true && (dienthoai.Length >= 9 && dienthoai.Length <= 10))
+                return 1;
+            else
+                return 0;
+
+        
+        }
+        public int kiemtra_cmnd(String cmnd)
+        {
+            Regex regex = new Regex(@"[0-9]+");
+            if (regex.IsMatch(cmnd) == true && cmnd.Length == 9)
                 return 1;
             else
                 return 0;
@@ -83,15 +68,16 @@ namespace OODBDemo
             if (hocki == 1 | hocki == 2)
                 return 1;
             else
-                return 0;
+            return 0;
         }
         public int kiemtra_conso(int diem)//kiem tra diem
         {
-            if (diem >= 0 || diem <= 10)
+            if (diem >=0 || diem<=10)
                 return 1;
             else return 0;
 
         }
+
         public void kiemtradb_nguoi(int magv)
         { }
         public int kiemtradb_masv(string massv)
@@ -138,8 +124,8 @@ namespace OODBDemo
             {
                 ketnoicsdl.Opendb("C:\\oodb.db4o");
                 Monhoc mhchk = (from Monhoc p in ketnoicsdl.db
-                                where p.Mamh == mamh
-                                select p).SingleOrDefault();
+                                  where p.Mamh == mamh
+                                  select p).SingleOrDefault();
                 if (mhchk == null)
                     return 0;
                 else
@@ -153,12 +139,12 @@ namespace OODBDemo
         }
         public int kiemtradb_malop(string malop)
         {
-            try
+           try
             {
                 ketnoicsdl.Opendb("C:\\oodb.db4o");
                 Lop lopchk = (from Lop p in ketnoicsdl.db
-                              where p.Malop == malop
-                              select p).SingleOrDefault();
+                                where p.Malop == malop
+                                select p).SingleOrDefault();
                 if (lopchk == null)
                     return 0;
                 else
@@ -169,14 +155,15 @@ namespace OODBDemo
             {
                 ketnoicsdl.db.Close();
             }
+    
         }
-        public int kiemtradb_malop_khoa(string malop, string khoa)
+        public int kiemtradb_malop_khoa(string malop,string khoa)
         {
             try
             {
                 ketnoicsdl.Opendb("C:\\oodb.db4o");
                 Lop lopchk = (from Lop p in ketnoicsdl.db
-                              where p.Malop == malop && p.Makhoa == khoa
+                              where p.Malop == malop &&p.Makhoa==khoa
                               select p).SingleOrDefault();
                 if (lopchk == null)
                     return 0;
@@ -195,8 +182,8 @@ namespace OODBDemo
             {
                 ketnoicsdl.Opendb("C:\\oodb.db4o");
                 Chuyennghanh nghanhchk = (from Chuyennghanh p in ketnoicsdl.db
-                                          where p.Manghanh == manghanh
-                                          select p).SingleOrDefault();
+                                        where p.Manghanh == manghanh
+                                select p).SingleOrDefault();
                 if (nghanhchk == null)
                     return 0;
                 else
@@ -209,13 +196,13 @@ namespace OODBDemo
             }
 
         }
-        public int kiemtradb_manghanh_khoa(string manghanh, string makhoa)
+        public int kiemtradb_manghanh_khoa(string manghanh,string makhoa)
         {
             try
             {
                 ketnoicsdl.Opendb("C:\\oodb.db4o");
                 Chuyennghanh nghanhchk = (from Chuyennghanh p in ketnoicsdl.db
-                                          where p.Manghanh == manghanh && p.Makhoa == makhoa
+                                          where p.Manghanh == manghanh && p.Makhoa==makhoa
                                           select p).SingleOrDefault();
                 if (nghanhchk == null)
                     return 0;
@@ -236,7 +223,7 @@ namespace OODBDemo
                 ketnoicsdl.Opendb("C:\\oodb.db4o");
                 Khoa khoachk = (from Khoa p in ketnoicsdl.db
                                 where p.Makhoa == makhoa
-                                select p).SingleOrDefault();
+                              select p).SingleOrDefault();
                 if (khoachk == null)
                     return 0;
                 else
@@ -247,27 +234,67 @@ namespace OODBDemo
             {
                 ketnoicsdl.db.Close();
             }
-
+        
         }
-        public void kiemtratufile_excel(ref string loi, string Ma, string Hoten, string Ngaysinh, string Gioitinh, string Diachi, string Dienthoai, string Malop, string Bacdaotao, string Khoahoc, string Khoa, string Nganhhoc)
+        public int kiemtra_sinhvien(int cmdd)
         {
-            loi += "\n" + " Mã sinh viên này " + Ma + " không đúng ở các phần sau " + "\n";
-            if (kiemtradb_makhoa(Khoa) == 0)
-                loi += " mã khoa " + Khoa + " không đúng" + "\n";
-            if (kiemtradb_manghanh(Nganhhoc) == 0)
-                loi += " mã nghành " + Nganhhoc + " không đúng " + "\n";
-            if (kiemtradb_manghanh_khoa(Nganhhoc, Khoa) == 0)
-                loi += " mã nghành " + Nganhhoc + " này không thuộc khoa " + Khoa + "\n";
-            if (kiemtradb_malop(Malop) == 0)
-                loi += Malop + " mã lớp này không đúng" + "\n";
-            if (kiemtradb_malop_khoa(Malop, Khoa) == 0)
+
+            try
+            {
+                ketnoicsdl.Opendb("C:\\oodb.db4o");
+                List<Sinhvien> svexist = (from Sinhvien p in ketnoicsdl.db
+                                where p.Cmnd == cmdd
+                                select p).ToList();
+                if (svexist == null || svexist.Count==0)
+                    return 1;
+                else
+                    return 0;
+
+            }
+            finally
+            {
+                ketnoicsdl.db.Close();
+            }
+        }
+        public int kiemtra_sinhvien_up(int cmdd,string masv)
+        {
+
+            try
+            {
+                ketnoicsdl.Opendb("C:\\oodb.db4o");
+                List<Sinhvien> svexist = (from Sinhvien p in ketnoicsdl.db
+                                          where p.Cmnd == cmdd 
+                                          select p).ToList();
+                if (svexist == null || svexist.Count == 0)
+                    return 1;
+                else if (svexist[0].Ma == masv)
+                    return 1;
+                else
+                    return 0;
+
+            }
+            finally
+            {
+                ketnoicsdl.db.Close();
+            }
+        }
+        public void kiemtratufile_excel(ref string loi,string Ma, string Hoten, string Ngaysinh, string Gioitinh, string Diachi, string Dienthoai, string Malop, string Bacdaotao, string Khoahoc, string Khoa,string Cmnd)
+        {
+           
+            if (kiemtradb_makhoa(Khoa) == 0 && Khoa.Trim()!="")
+                loi +="\n" + " Thông tin sinh viên " + Hoten + " không đúng ở các phần sau " + "\n"+ " mã khoa " + Khoa + " không đúng " + "\n";
+            if(kiemtradb_malop(Malop)==0 && Malop.Trim()!="")
+                loi += Malop+ " mã lớp này không đúng hoặc không có " + "\n";
+            if (kiemtradb_malop_khoa(Malop, Khoa) == 0 && Malop.Trim() != "" && Khoa.Trim() != "")
                 loi += " mã lớp " + Malop + " này không có trong khoa " + Khoa + "\n";
-            if (kiemtra_dienthoai(Dienthoai) == 0)
+            if (kiemtra_dienthoai(Dienthoai) == 0 && Dienthoai.Trim() != "")
                 loi += " số điện thoại phải là số và có từ 9 đến 11 số " + "\n";
-            if (kiemtrangay(Ngaysinh) == 0)
-                loi += " Ngày sinh không đúng định dạng, định dạng đúng ngay/thang/nam" + "\n";
-
-
+            if (kiemtrangay(Ngaysinh) == 0 && Ngaysinh.Trim()!="")
+                loi += " Ngày sinh không đúng định dạng, định dạng đúng ngay/thang/nam " + "\n";
+            if (kiemtra_cmnd(Cmnd) == 0 && Cmnd.Trim()!="")
+                loi += " Cmnd không đúng định dạng,hoặc có chứa chữ số hoặc không đủ ký tự số theo quy định (9) " + "\n";
+           
+          
         }
     }
 }

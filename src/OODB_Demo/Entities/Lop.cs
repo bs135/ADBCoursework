@@ -8,14 +8,13 @@ using LinqToExcel;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace OODBDemo
+namespace courcework
 {
     class Lop
     {
         string malop;
         string tenlop;
         string makhoa;
-        string manghanh;
         public string Malop
         {
             get { return malop; }
@@ -31,18 +30,14 @@ namespace OODBDemo
             get { return makhoa; }
             set { makhoa=value; }
         }
-        public string Manghanh
-        {
-            get { return manghanh; }
-            set { manghanh = value; }
-        }
-        public void addlop(string malop,string tenlop,string makhoa,string manghanh)
+
+        public void addlop(string malop,string tenlop,string makhoa)
         {
             Lop lop = new Lop();
             lop.Malop = malop;
             lop.tenlop = tenlop;
             lop.Makhoa = makhoa;
-            lop.manghanh = manghanh;
+            
             try
             {
                 ketnoicsdl.Opendb("C:\\oodb.db4o");
@@ -100,23 +95,6 @@ namespace OODBDemo
             }
 
         }
-        public List<Lop> listlop_nghanh(string manghanh)
-        {
-            List<Lop> kh = new List<Lop>();
-            try
-            {
-                ketnoicsdl.Opendb("C:\\oodb.db4o");
 
-                kh = (from Lop p in ketnoicsdl.db
-                      where p.manghanh == manghanh
-                      select p).ToList();
-                return kh;
-            }
-            finally
-            {
-                ketnoicsdl.db.Close();
-            }
-
-        }
     }
 }
