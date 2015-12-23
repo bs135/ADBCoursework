@@ -198,3 +198,4 @@ FakesAssemblies/
 
 #####################
 !**/libraries/*
+!**/libraries/
