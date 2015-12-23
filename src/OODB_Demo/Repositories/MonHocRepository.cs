@@ -16,65 +16,184 @@ namespace OODBDemo.Repositories
     {
         DBConnect dbConnect = new DBConnect();
 
-        public Monhoc getById(string id)
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ma"></param>
+        /// <returns></returns>
+        public Monhoc getById(string ma)
         {
-            Monhoc mh = null;
+            Monhoc obj = null;
             try
             {
                 dbConnect.Open();
-                mh = (from Monhoc p in dbConnect.db
-                      where p.Mamh == id
-                      select p).FirstOrDefault();
+                obj = (from Monhoc p in dbConnect.db
+                       where p.Mamh == ma
+                       select p).FirstOrDefault();
                 dbConnect.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            finally
+            {
+                dbConnect.Close();
+            }
 
-            return mh;
+            return obj;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IList<Monhoc> getAll()
         {
-            IList<Monhoc> listmh = new List<Monhoc>();
+            IList<Monhoc> list = new List<Monhoc>();
             try
             {
                 dbConnect.Open();
-                listmh = (from Monhoc p in dbConnect.db
-                          select p).ToList();
+                list = (from Monhoc p in dbConnect.db
+                        select p).ToList();
                 dbConnect.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            finally
+            {
+                dbConnect.Close();
+            }
 
-            return listmh;
+            return list;
 
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public DataTable getTable()
         {
             DataTable dt = new DataTable();
 
-            dt.Columns.Add("MMH");
-            dt.Columns.Add("Tên môn học");
-            dt.Columns.Add("Số chỉ");
+            dt.Columns.Add("Mamh");
+            dt.Columns.Add("Tenmh");
+            dt.Columns.Add("Sochi");
             IList<Monhoc> list = this.getAll();
 
             foreach (var item in list)
             {
                 var row = dt.NewRow();
 
-                row["MMH"] = item.Mamh;
-                row["Tên môn học"] = item.Tenmh;
-                row["Số chỉ"] = item.Sochi;
+                row["Mamh"] = item.Mamh;
+                row["Tenmh"] = item.Tenmh;
+                row["Sochi"] = item.Sochi;
 
                 dt.Rows.Add(row);
             }
 
             return dt;
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mamh"></param>
+        /// <param name="tenmh"></param>
+        /// <param name="sochi"></param>
+        public void add(string mamh, string tenmh, int sochi)
+        {
+            Monhoc obj = new Monhoc();
+            obj.Mamh = mamh;
+            obj.Tenmh = tenmh;
+            obj.Sochi = sochi;
+            try
+            {
+                dbConnect.Open();
+                dbConnect.db.Store(obj);
+                dbConnect.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                dbConnect.Close();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ma"></param>
+        public void delete(string ma)
+        {
+            try
+            {
+                dbConnect.Open();
+                Monhoc obj = (from Monhoc p in dbConnect.db
+                              where p.Mamh == ma
+                              select p).FirstOrDefault();
+                if (obj != null)
+                {
+                    dbConnect.db.Delete(obj);
+                }
+
+                dbConnect.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                dbConnect.Close();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mamh"></param>
+        /// <param name="tenmh"></param>
+        /// <param name="sochi"></param>
+        public void update(string mamh, string tenmh, int sochi)
+        {
+            try
+            {
+                dbConnect.Open();
+                Monhoc obj = (from Monhoc p in dbConnect.db
+                              where p.Mamh == mamh
+                              select p).FirstOrDefault();
+                if (obj != null)
+                {
+                    obj.Tenmh = tenmh;
+                    obj.Sochi = sochi;
+
+                    dbConnect.db.Store(obj);
+                }
+
+                dbConnect.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                dbConnect.Close();
+            }
+
+        }
+
     }
 }
