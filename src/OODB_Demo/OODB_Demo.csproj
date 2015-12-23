@@ -164,6 +164,7 @@
     <Compile Include="Forms\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\MonHocRepository.cs" />
     <Compile Include="Utilities\Checkinput.cs" />
     <Compile Include="Entities\Chuyennghanh.cs" />
     <Compile Include="Forms\Dangnhap.cs">

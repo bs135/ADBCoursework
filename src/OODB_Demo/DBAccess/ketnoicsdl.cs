@@ -10,6 +10,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Globalization;
+using OODBDemo.Entities;
+
 namespace OODBDemo
 {
     class ketnoicsdl

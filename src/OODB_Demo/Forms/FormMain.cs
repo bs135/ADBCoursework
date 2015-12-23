@@ -24,8 +24,11 @@ namespace OODBDemo
         private void btnNhapTTVS_Click(object sender, EventArgs e)
         {
             frmNhapTTVS.ShowDialog();
-            DBConnect db = new DBConnect();
+        }
 
+        private void btnMonHoc_Click(object sender, EventArgs e)
+        {
+            frmMonHoc.ShowDialog();
         }
     }
 }

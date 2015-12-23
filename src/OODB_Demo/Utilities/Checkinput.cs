@@ -12,6 +12,7 @@ using System.Globalization;
 using OfficeOpenXml;
 using System.IO;
 using System.Text.RegularExpressions;
+using OODBDemo.Entities;
 namespace OODBDemo
 {
     class Checkinput

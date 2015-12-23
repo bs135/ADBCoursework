@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.btnNhapTTVS = new System.Windows.Forms.Button();
+            this.btnMonHoc = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnNhapTTVS
@@ -41,13 +42,24 @@
             this.btnNhapTTVS.UseVisualStyleBackColor = true;
             this.btnNhapTTVS.Click += new System.EventHandler(this.btnNhapTTVS_Click);
             // 
-            // frmMain
+            // btnMonHoc
+            // 
+            this.btnMonHoc.Location = new System.Drawing.Point(41, 63);
+            this.btnMonHoc.Name = "btnMonHoc";
+            this.btnMonHoc.Size = new System.Drawing.Size(174, 23);
+            this.btnMonHoc.TabIndex = 1;
+            this.btnMonHoc.Text = "Môn học";
+            this.btnMonHoc.UseVisualStyleBackColor = true;
+            this.btnMonHoc.Click += new System.EventHandler(this.btnMonHoc_Click);
+            // 
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(490, 290);
+            this.Controls.Add(this.btnMonHoc);
             this.Controls.Add(this.btnNhapTTVS);
-            this.Name = "frmMain";
+            this.Name = "FormMain";
             this.Text = "frmMain";
             this.ResumeLayout(false);
 
@@ -56,5 +68,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnNhapTTVS;
+        private System.Windows.Forms.Button btnMonHoc;
     }
 }
