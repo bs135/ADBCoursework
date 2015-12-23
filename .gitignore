@@ -197,5 +197,6 @@ FakesAssemblies/
 
 
 #####################
+!/db4o-net-4.0
 !/db4o-net-4.0/
 !/db4o-net-4.0/*
