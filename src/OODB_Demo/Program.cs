@@ -16,7 +16,7 @@ namespace OODBDemo
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Nhapttsv());
+            Application.Run(new FormMain());
 
         }
     }
