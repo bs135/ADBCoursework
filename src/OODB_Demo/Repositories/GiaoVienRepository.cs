@@ -14,7 +14,7 @@ using OODBDemo.Entities;
 
 namespace OODBDemo.Repositories
 {
-    public class MonHocRepository
+    public class GiaoVienRepository
     {
         DBConnect dbConnect = new DBConnect();
 
@@ -25,14 +25,14 @@ namespace OODBDemo.Repositories
         /// </summary>
         /// <param name="ma"></param>
         /// <returns></returns>
-        public Monhoc getById(string ma)
+        public Giaovien getById(string ma)
         {
-            Monhoc obj = null;
+            Giaovien obj = null;
             try
             {
                 dbConnect.Open();
-                obj = (from Monhoc o in dbConnect.db
-                       where o.Mamh == ma
+                obj = (from Giaovien o in dbConnect.db
+                       where o.Ma == ma
                        select o).FirstOrDefault();
                 dbConnect.Close();
             }
@@ -53,13 +53,13 @@ namespace OODBDemo.Repositories
         /// lấy danh sách môn học
         /// </summary>
         /// <returns></returns>
-        public IList<Monhoc> getAll()
+        public IList<Giaovien> getAll()
         {
-            IList<Monhoc> list = new List<Monhoc>();
+            IList<Giaovien> list = new List<Giaovien>();
             try
             {
                 dbConnect.Open();
-                list = (from Monhoc o in dbConnect.db
+                list = (from Giaovien o in dbConnect.db
                         select o).ToList();
                 dbConnect.Close();
             }
@@ -85,18 +85,40 @@ namespace OODBDemo.Repositories
         {
             DataTable dt = new DataTable();
 
-            dt.Columns.Add("Mamh");
-            dt.Columns.Add("Tenmh");
-            dt.Columns.Add("Sochi");
-            IList<Monhoc> list = this.getAll();
+            dt.Columns.Add("Ma");
+            dt.Columns.Add("Hoten");
+            dt.Columns.Add("Ngaysinh");
+            dt.Columns.Add("Gioitinh");
+            dt.Columns.Add("Diachi");
+            dt.Columns.Add("Dienthoai");
+
+            dt.Columns.Add("Email");
+            dt.Columns.Add("Makhoa");
+            dt.Columns.Add("Trinhdo");
+            dt.Columns.Add("Phanloai");
+            dt.Columns.Add("Quoctich");
+            dt.Columns.Add("Nangkhieu");
+
+            IList<Giaovien> list = this.getAll();
 
             foreach (var item in list)
             {
                 var row = dt.NewRow();
 
-                row["Mamh"] = item.Mamh;
-                row["Tenmh"] = item.Tenmh;
-                row["Sochi"] = item.Sochi;
+                row["Ma"] = item.Ma;
+                row["Hoten"] = item.Hoten;
+                row["Ngaysinh"] = item.Ngaysinh;
+                row["Gioitinh"] = item.Gioitinh;
+                row["Diachi"] = item.Diachi;
+                row["Dienthoai"] = item.Dienthoai;
+
+                row["Email"] = item.Email;
+                row["Makhoa"] = item.Makhoa;
+                row["Trinhdo"] = item.Trinhdo;
+                row["Phanloai"] = item.Phanloai;
+                row["Quoctich"] = item.Quoctich;
+                row["Nangkhieu"] = item.Nangkhieu;
+
 
                 dt.Rows.Add(row);
             }
@@ -111,12 +133,23 @@ namespace OODBDemo.Repositories
         /// <param name="mamh"></param>
         /// <param name="tenmh"></param>
         /// <param name="sochi"></param>
-        public void add(string mamh, string tenmh, int sochi)
+        public void add(string ma, string hoten, string ngaysinh, string gioitinh, string diachi, int dienthoai, string email, string makhoa, string trinhdo, string phanloai, string quoctich, string nangkhieu)
         {
-            Monhoc obj = new Monhoc();
-            obj.Mamh = mamh;
-            obj.Tenmh = tenmh;
-            obj.Sochi = sochi;
+            Giaovien obj = new Giaovien();
+            obj.Ma = ma;
+            obj.Hoten = hoten;
+            obj.Ngaysinh = ngaysinh;
+            obj.Gioitinh = gioitinh;
+            obj.Diachi = diachi;
+            obj.Dienthoai = dienthoai;
+
+            obj.Email = email;
+            obj.Makhoa = makhoa;
+            obj.Trinhdo = trinhdo;
+            obj.Phanloai = phanloai;
+            obj.Quoctich = quoctich;
+            obj.Nangkhieu = nangkhieu;
+
             try
             {
                 dbConnect.Open();
@@ -142,8 +175,8 @@ namespace OODBDemo.Repositories
             try
             {
                 dbConnect.Open();
-                Monhoc obj = (from Monhoc o in dbConnect.db
-                              where o.Mamh == ma
+                Giaovien obj = (from Giaovien o in dbConnect.db
+                              where o.Ma == ma
                               select o).FirstOrDefault();
                 if (obj != null)
                 {
@@ -168,18 +201,28 @@ namespace OODBDemo.Repositories
         /// <param name="mamh"></param>
         /// <param name="tenmh"></param>
         /// <param name="sochi"></param>
-        public void update(string mamh, string tenmh, int sochi)
+        public void update(string ma, string hoten, string ngaysinh, string gioitinh, string diachi, int dienthoai, string email, string makhoa, string trinhdo, string phanloai, string quoctich, string nangkhieu)
         {
             try
             {
                 dbConnect.Open();
-                Monhoc obj = (from Monhoc o in dbConnect.db
-                              where o.Mamh == mamh
+                Giaovien obj = (from Giaovien o in dbConnect.db
+                              where o.Ma == ma
                               select o).FirstOrDefault();
                 if (obj != null)
                 {
-                    obj.Tenmh = tenmh;
-                    obj.Sochi = sochi;
+                    obj.Hoten = hoten;
+                    obj.Ngaysinh = ngaysinh;
+                    obj.Gioitinh = gioitinh;
+                    obj.Diachi = diachi;
+                    obj.Dienthoai = dienthoai;
+
+                    obj.Email = email;
+                    obj.Makhoa = makhoa;
+                    obj.Trinhdo = trinhdo;
+                    obj.Phanloai = phanloai;
+                    obj.Quoctich = quoctich;
+                    obj.Nangkhieu = nangkhieu;
 
                     dbConnect.db.Store(obj);
                 }
@@ -209,14 +252,14 @@ namespace OODBDemo.Repositories
             {
                 string sheetName = "Sheet1";
                 var excelFile = new ExcelQueryFactory(pathToExcelFile);
-                var excelSheet = from item in excelFile.Worksheet<Monhoc>(sheetName) select item;
+                var excelSheet = from item in excelFile.Worksheet<Giaovien>(sheetName) select item;
                 foreach (var item in excelSheet)
                 {
-                    if (!this.isExist(item.Mamh))
+                    if (!this.isExist(item.Ma))
                     {
-                        if (this.isValid(item.Mamh, item.Tenmh, item.Sochi))
+                        if (this.isValid(item.Ma, item.Hoten, item.Ngaysinh, item.Gioitinh, item.Diachi, item.Dienthoai, item.Email, item.Makhoa, item.Trinhdo, item.Phanloai, item.Quoctich, item.Nangkhieu))
                         {
-                            this.add(item.Mamh, item.Tenmh, item.Sochi);
+                            this.add(item.Ma, item.Hoten, item.Ngaysinh, item.Gioitinh, item.Diachi, item.Dienthoai, item.Email, item.Makhoa, item.Trinhdo, item.Phanloai, item.Quoctich, item.Nangkhieu);
                         }
                     }
                 }
@@ -240,14 +283,23 @@ namespace OODBDemo.Repositories
             {
 
                 ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
-                worksheet.Cell(1, 1).Value = "Mã MH";
-                worksheet.Cell(1, 2).Value = "Tên MH";
-                worksheet.Cell(1, 3).Value = "Số TC";
+                worksheet.Cell(1, 1).Value = "Mã";
+                worksheet.Cell(1, 2).Value = "Họ tên";
+                worksheet.Cell(1, 3).Value = "Ngày sinh";
+                worksheet.Cell(1, 4).Value = "Giới tính";
+                worksheet.Cell(1, 5).Value = "Địa chỉ";
+                worksheet.Cell(1, 6).Value = "Điện thoại";
+                worksheet.Cell(1, 7).Value = "Email";
+                worksheet.Cell(1, 8).Value = "Mã khoa";
+                worksheet.Cell(1, 9).Value = "Trình độ";
+                worksheet.Cell(1, 10).Value = "Phân loại";
+                worksheet.Cell(1, 11).Value = "Quốc tịch";
+                worksheet.Cell(1, 12).Value = "Năng khiếu";
                 //MessageBox.Show(data.Rows[6].Cells[2].Value.ToString());
                 //return false;
                 int rowCount = data.Rows.Count;
                 for (int r = 0; r < rowCount - 1; r++)
-                    for (int c = 0; c < 3; c++)
+                    for (int c = 0; c < 12; c++)
                         worksheet.Cell(r + 2, c + 1).Value = data.Rows[r].Cells[c].Value.ToString();
 
                 excelPackage.Save();
@@ -270,11 +322,22 @@ namespace OODBDemo.Repositories
         /// <param name="tenmh"></param>
         /// <param name="sochi"></param>
         /// <returns></returns>
-        public bool isValid(string mamh, string tenmh, int sochi)
+        public bool isValid(string ma, string hoten, string ngaysinh, string gioitinh, string diachi, int dienthoai, string email, string makhoa, string trinhdo, string phanloai, string quoctich, string nangkhieu)
         {
-            if (string.IsNullOrEmpty(mamh)) return false;
-            if (string.IsNullOrEmpty(tenmh)) return false;
-            if (sochi <= 0) return false;
+            Checkinput checkinput = new Checkinput();
+
+            if (string.IsNullOrEmpty(ma)) return false;
+            if (string.IsNullOrEmpty(hoten)) return false;
+            if (string.IsNullOrEmpty(ngaysinh)) return false; if (checkinput.kiemtrangay(ngaysinh) == 0) return false;
+            if (string.IsNullOrEmpty(gioitinh)) return false;
+            if (string.IsNullOrEmpty(diachi)) return false;
+            if (dienthoai <= 0) return false; if (checkinput.kiemtra_dienthoai(dienthoai.ToString()) == 0) return false;
+            if (string.IsNullOrEmpty(email)) return false;
+            if (string.IsNullOrEmpty(makhoa)) return false;
+            if (string.IsNullOrEmpty(trinhdo)) return false;
+            if (string.IsNullOrEmpty(phanloai)) return false;
+            if (string.IsNullOrEmpty(quoctich)) return false;
+            if (string.IsNullOrEmpty(nangkhieu)) return false;
             return true;
         }
 
@@ -283,9 +346,9 @@ namespace OODBDemo.Repositories
         /// </summary>
         /// <param name="mamh"></param>
         /// <returns></returns>
-        public bool isExist(string mamh)
+        public bool isExist(string ma)
         {
-            Monhoc obj = this.getById(mamh);
+            Giaovien obj = this.getById(ma);
             if (obj == null) return false;
             return true;
         }

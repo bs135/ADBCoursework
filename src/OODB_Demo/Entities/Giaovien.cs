@@ -5,44 +5,14 @@ using System.Text;
 
 namespace OODBDemo
 {
-    class Giaovien : NguoiI
+    public class Giaovien : NguoiI
     {
-        string email;
-        string makhoa;
-        string trinhdo;
-        string phanloai;
-        string quoctich;
-        string nangkhieu;
-        public string Email
-        {
-            get { return email; }
-            set { email = value; }
-        }
-        public string Makhoa
-        {
-            get { return makhoa; }
-            set { makhoa = value; }
-        }
-        public string Trinhdo
-        {
-            get { return trinhdo; }
-            set { trinhdo = value; }
-        }
-        public string Phanloai
-        {
-            get { return phanloai; }
-            set { phanloai = value; }
-        }
-        public string Quoctich
-        {
-            get { return quoctich; }
-            set { quoctich = value; }
-        }
-        public string Nangkhieu
-        {
-            get { return nangkhieu; }
-            set { nangkhieu = value; }
-        }
+        public string Email { get; set; }
+        public string Makhoa { get; set; }
+        public string Trinhdo { get; set; }
+        public string Phanloai { get; set; }
+        public string Quoctich { get; set; }
+        public string Nangkhieu { get; set; }
     }
 
 }

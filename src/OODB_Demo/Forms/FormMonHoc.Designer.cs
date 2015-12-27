@@ -37,8 +37,7 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dgvListMonHoc = new System.Windows.Forms.DataGridView();
-            this.ma = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvListData = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnExportExcel = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -52,12 +51,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtMaMonHoc = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.ma = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlTitle.SuspendLayout();
             this.pnlSearch.SuspendLayout();
             this.grpSearch.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvListMonHoc)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListData)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSoChi)).BeginInit();
@@ -145,7 +145,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.dgvListMonHoc);
+            this.groupBox3.Controls.Add(this.dgvListData);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
@@ -154,26 +154,21 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Danh sách";
             // 
-            // dgvListMonHoc
+            // dgvListData
             // 
-            this.dgvListMonHoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvListMonHoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvListData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvListData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ma});
-            this.dgvListMonHoc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvListMonHoc.Location = new System.Drawing.Point(3, 16);
-            this.dgvListMonHoc.Margin = new System.Windows.Forms.Padding(2);
-            this.dgvListMonHoc.Name = "dgvListMonHoc";
-            this.dgvListMonHoc.RowTemplate.Height = 24;
-            this.dgvListMonHoc.Size = new System.Drawing.Size(815, 415);
-            this.dgvListMonHoc.TabIndex = 0;
-            this.dgvListMonHoc.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvListMonHoc_CellMouseClick);
-            this.dgvListMonHoc.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvListMonHoc_RowHeaderMouseClick);
-            // 
-            // ma
-            // 
-            this.ma.DataPropertyName = "ma";
-            this.ma.HeaderText = "Mã sinh viên";
-            this.ma.Name = "ma";
+            this.dgvListData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvListData.Location = new System.Drawing.Point(3, 16);
+            this.dgvListData.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvListData.Name = "dgvListData";
+            this.dgvListData.ReadOnly = true;
+            this.dgvListData.RowTemplate.Height = 24;
+            this.dgvListData.Size = new System.Drawing.Size(815, 415);
+            this.dgvListData.TabIndex = 0;
+            this.dgvListData.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvListData_CellMouseClick);
+            this.dgvListData.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvListData_RowHeaderMouseClick);
             // 
             // panel2
             // 
@@ -197,6 +192,7 @@
             this.btnExportExcel.TabIndex = 33;
             this.btnExportExcel.Text = "Xuất ra Excel";
             this.btnExportExcel.UseVisualStyleBackColor = true;
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
             // 
             // btnDelete
             // 
@@ -238,6 +234,7 @@
             this.btnImportExcel.TabIndex = 27;
             this.btnImportExcel.Text = "Nhập từ Excel";
             this.btnImportExcel.UseVisualStyleBackColor = true;
+            this.btnImportExcel.Click += new System.EventHandler(this.btnImportExcel_Click);
             // 
             // panel3
             // 
@@ -321,6 +318,13 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Mã Môn học";
             // 
+            // ma
+            // 
+            this.ma.DataPropertyName = "ma";
+            this.ma.HeaderText = "Mã";
+            this.ma.Name = "ma";
+            this.ma.ReadOnly = true;
+            // 
             // FormMonHoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -340,7 +344,7 @@
             this.grpSearch.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvListMonHoc)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListData)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -367,13 +371,13 @@
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnImportExcel;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.DataGridView dgvListMonHoc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ma;
+        private System.Windows.Forms.DataGridView dgvListData;
         private System.Windows.Forms.NumericUpDown numSoChi;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtTenMonHoc;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtMaMonHoc;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ma;
     }
 }

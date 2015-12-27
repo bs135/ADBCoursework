@@ -23,12 +23,12 @@ namespace OODBDemo
         private void loadDataTable()
         {
             DataTable table = _mh.getTable();
-            dgvListMonHoc.Columns.Clear();
-            dgvListMonHoc.DataSource = table;
+            dgvListData.Columns.Clear();
+            dgvListData.DataSource = table;
 
-            dgvListMonHoc.Columns["Mamh"].HeaderText = "Mã MH";
-            dgvListMonHoc.Columns["Tenmh"].HeaderText = "Tên MH";
-            dgvListMonHoc.Columns["Sochi"].HeaderText = "Số TC";
+            dgvListData.Columns["Mamh"].HeaderText = "Mã MH";
+            dgvListData.Columns["Tenmh"].HeaderText = "Tên MH";
+            dgvListData.Columns["Sochi"].HeaderText = "Số TC";
         }
 
         private void frmMonHoc_Load(object sender, EventArgs e)
@@ -38,8 +38,13 @@ namespace OODBDemo
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtMaMonHoc.Text) && string.IsNullOrEmpty(txtTenMonHoc.Text))
+            if (_mh.isValid(txtMaMonHoc.Text, txtTenMonHoc.Text, (int)numSoChi.Value))
             {
+                if (_mh.isExist(txtMaMonHoc.Text))
+                {
+                    MessageBox.Show("Mã môn học đã tồn tại.");
+                    return;
+                }
                 _mh.add(txtMaMonHoc.Text, txtTenMonHoc.Text, (int)numSoChi.Value);
                 loadDataTable();
             }
@@ -61,16 +66,56 @@ namespace OODBDemo
             loadDataTable();
         }
 
-        private void dgvListMonHoc_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dgvListData_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            txtMaMonHoc.Text = dgvListMonHoc.Rows[e.RowIndex].Cells["Mamh"].Value.ToString();
-            txtTenMonHoc.Text = dgvListMonHoc.Rows[e.RowIndex].Cells["Tenmh"].Value.ToString();
-            numSoChi.Value = Convert.ToInt16(dgvListMonHoc.Rows[e.RowIndex].Cells["Sochi"].Value.ToString());
+            txtMaMonHoc.Text = dgvListData.Rows[e.RowIndex].Cells["Mamh"].Value.ToString();
+            txtTenMonHoc.Text = dgvListData.Rows[e.RowIndex].Cells["Tenmh"].Value.ToString();
+            numSoChi.Value = Convert.ToInt16(dgvListData.Rows[e.RowIndex].Cells["Sochi"].Value.ToString());
         }
 
-        private void dgvListMonHoc_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dgvListData_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            dgvListMonHoc_RowHeaderMouseClick(sender, e);
+            dgvListData_RowHeaderMouseClick(sender, e);
+        }
+
+        private void btnImportExcel_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.Title = "Nhập từ tập tin Excel";
+            ofd.Filter = "Excel file (*.xls, *.xlsx)|*.xls;*.xlsx";
+            DialogResult re = ofd.ShowDialog();
+            if (re == DialogResult.OK)
+            {
+                if (_mh.importFromExcel(ofd.FileName))
+                {
+                    loadDataTable();
+                }
+                else
+                {
+                    MessageBox.Show("Nhập từ tập tin thất bại. Vui lòng kiểm tra lại.");
+                }
+            }
+        }
+
+        private void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog ofd = new SaveFileDialog();
+
+            ofd.Title = "Xuất tập tin Excel";
+            ofd.Filter = "Excel file (*.xls, *.xlsx)|*.xls;*.xlsx";
+            DialogResult re = ofd.ShowDialog();
+            if (re == DialogResult.OK)
+            {
+                if (_mh.exportFromExcel(dgvListData, ofd.FileName))
+                {
+                    MessageBox.Show("Xuất thành công.");
+                }
+                else
+                {
+                    MessageBox.Show("Xuất thất bại.");
+                }
+            }
         }
 
 

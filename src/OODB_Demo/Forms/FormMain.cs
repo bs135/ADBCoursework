@@ -30,5 +30,10 @@ namespace OODBDemo
         {
             frmMonHoc.ShowDialog();
         }
+
+        private void btnGiaoVien_Click(object sender, EventArgs e)
+        {
+            frmGiaoVien.ShowDialog();
+        }
     }
 }

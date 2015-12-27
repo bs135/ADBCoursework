@@ -164,6 +164,7 @@
     <Compile Include="Forms\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\GiaoVienRepository.cs" />
     <Compile Include="Repositories\MonHocRepository.cs" />
     <Compile Include="Utilities\Checkinput.cs" />
     <Compile Include="Entities\Chuyennghanh.cs" />
@@ -195,11 +196,12 @@
     <Compile Include="DBAccess\csdl.cs" />
     <Compile Include="DBAccess\Thaotaccsdl.cs" />
     <Compile Include="Repositories\User.cs" />
-    <EmbeddedResource Include="Forms\Dangnhap.resx">
-      <DependentUpon>Dangnhap.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="Utilities\Utils.cs" />
     <EmbeddedResource Include="Forms\FormGiaoVien.resx">
       <DependentUpon>FormGiaoVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dangnhap.resx">
+      <DependentUpon>Dangnhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormMonHoc.resx">
       <DependentUpon>FormMonHoc.cs</DependentUpon>
