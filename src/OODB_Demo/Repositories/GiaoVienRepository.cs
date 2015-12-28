@@ -327,7 +327,7 @@ namespace OODBDemo.Repositories
                     {
                         if (this.isValid(item.Hoten, item.Ngaysinh, item.Gioitinh, item.Diachi, item.Dienthoai, item.Email, item.Makhoa, item.Trinhdo, item.Cmnd, item.Quoctich, item.Nangkhieu))
                         {
-                            this.add(item.Ma, item.Hoten, item.Ngaysinh, item.Gioitinh, item.Diachi, item.Dienthoai, item.Email, item.Makhoa, item.Trinhdo, item.Cmnd, item.Quoctich, item.Nangkhieu);
+                            this.add(this.getNewID(), item.Hoten, item.Ngaysinh, item.Gioitinh, item.Diachi, item.Dienthoai, item.Email, item.Makhoa, item.Trinhdo, item.Cmnd, item.Quoctich, item.Nangkhieu);
                         }
                     }
                 }

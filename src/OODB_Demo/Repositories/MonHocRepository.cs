@@ -249,7 +249,7 @@ namespace OODBDemo.Repositories
                     {
                         if (this.isValid(item.Tenmh, item.Sochi))
                         {
-                            this.add(item.Mamh, item.Tenmh, item.Sochi);
+                            this.add(this.getNewID(), item.Tenmh, item.Sochi);
                         }
                     }
                 }

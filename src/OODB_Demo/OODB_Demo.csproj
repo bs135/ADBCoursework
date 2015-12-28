@@ -180,8 +180,6 @@
     <Compile Include="Repositories\MonHocRepository.cs" />
     <Compile Include="Repositories\GiaoVienRepository.cs" />
     <Compile Include="Repositories\KhoaRepository.cs" />
-    <Compile Include="Utilities\Checkinput.cs" />
-    <Compile Include="Entities\Chuyennghanh.cs" />
     <Compile Include="Forms\Dangnhap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,9 +187,7 @@
       <DependentUpon>Dangnhap.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\Diemsv.cs" />
-    <Compile Include="Utilities\kiemtrarangbuoc.cs" />
     <Compile Include="Entities\Giaovien.cs" />
-    <Compile Include="Entities\Hanhkiem.cs" />
     <Compile Include="DBAccess\ketnoicsdl.cs" />
     <Compile Include="Entities\Khoa.cs" />
     <Compile Include="Entities\Lop.cs" />
@@ -201,9 +197,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Settings.cs" />
     <Compile Include="Entities\Sinhvien.cs" />
-    <Compile Include="DBAccess\csdl.cs" />
-    <Compile Include="DBAccess\Thaotaccsdl.cs" />
-    <Compile Include="Repositories\User.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <EmbeddedResource Include="Forms\FormDiem.resx">
       <DependentUpon>FormDiem.cs</DependentUpon>
@@ -235,6 +229,10 @@
     </Compile>
     <None Include="app.config" />
     <None Include="App_Data\oodb.db4o" />
+    <None Include="import_template\importDiem.xlsx" />
+    <None Include="import_template\importGiaoVien.xlsx" />
+    <None Include="import_template\importKhoa.xlsx" />
+    <None Include="import_template\importMonHoc.xlsx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
