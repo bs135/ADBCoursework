@@ -11,56 +11,29 @@ using System.IO;
 using OfficeOpenXml;
 using OODBDemo.DBAccess;
 using OODBDemo.Entities;
+using OODBDemo.Utilities;
 
 namespace OODBDemo.Repositories
 {
-    public class MonHocRepository
+    public class KhoaRepository
     {
         DBConnect dbConnect = new DBConnect();
 
-        public string getNewID()
-        {
-            Monhoc obj = null;
-            string newID = "MH000001";
-            try
-            {
-                dbConnect.Open();
-                obj = (from Monhoc o in dbConnect.db
-                       orderby o.Mamh descending
-                       select o).FirstOrDefault();
-                dbConnect.Close();
 
-                int i = 0;
-                if (obj != null && int.TryParse(obj.Mamh.Substring(2), out i))
-                {
-                    newID = "MH" + (i + 1).ToString("D6");
-                }
-                return newID;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return newID;
-            }
-            finally
-            {
-                dbConnect.Close();
-            }
-        }
 
         /// <summary>
         /// lấy môn học theo mã
         /// </summary>
         /// <param name="ma"></param>
         /// <returns></returns>
-        public Monhoc getById(string ma)
+        public Khoa getById(string ma)
         {
-            Monhoc obj = null;
+            Khoa obj = null;
             try
             {
                 dbConnect.Open();
-                obj = (from Monhoc o in dbConnect.db
-                       where o.Mamh == ma
+                obj = (from Khoa o in dbConnect.db
+                       where o.Makhoa == ma
                        select o).FirstOrDefault();
                 dbConnect.Close();
             }
@@ -78,16 +51,44 @@ namespace OODBDemo.Repositories
 
 
         /// <summary>
-        /// lấy danh sách môn học
+        /// tìm khoa theo tên
         /// </summary>
+        /// <param name="name"></param>
         /// <returns></returns>
-        public IEnumerable<Monhoc> getAll()
+        public Khoa getByName(string name)
         {
-            IEnumerable<Monhoc> list = new List<Monhoc>();
+            Khoa obj = null;
             try
             {
                 dbConnect.Open();
-                list = (from Monhoc o in dbConnect.db
+                obj = (from Khoa o in dbConnect.db
+                       where o.Tenkhoa == name
+                       select o).FirstOrDefault();
+                dbConnect.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                dbConnect.Close();
+            }
+
+            return obj;
+        }
+
+        /// <summary>
+        /// lấy danh sách môn học
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Khoa> getAll()
+        {
+            IEnumerable<Khoa> list = new List<Khoa>();
+            try
+            {
+                dbConnect.Open();
+                list = (from Khoa o in dbConnect.db
                         select o).ToList();
                 dbConnect.Close();
             }
@@ -113,23 +114,38 @@ namespace OODBDemo.Repositories
         {
             DataTable dt = new DataTable();
 
-            dt.Columns.Add("Mamh");
-            dt.Columns.Add("Tenmh");
-            dt.Columns.Add("Sochi");
-            IEnumerable<Monhoc> list = this.getAll();
+            dt.Columns.Add("Makhoa");
+            dt.Columns.Add("Tenkhoa");
+            dt.Columns.Add("Truongkhoa");
+            dt.Columns.Add("Photruongkhoa");
+            dt.Columns.Add("Email");
+            dt.Columns.Add("Diachi");
+            dt.Columns.Add("Dienthoai");
+
+            IEnumerable<Khoa> list = this.getAll();
             if (!string.IsNullOrEmpty(keyword))
             {
                 keyword = keyword.Trim().ToLower();
-                list = list.Where(t => t.Mamh.ToLower().Contains(keyword) || t.Tenmh.ToLower().Contains(keyword));
+                list = list.Where(t => t.Makhoa.ToLower().Contains(keyword) 
+                    || t.Tenkhoa.ToLower().Contains(keyword)
+                    || t.Truongkhoa.ToLower().Contains(keyword)
+                    || t.Photruongkhoa.ToLower().Contains(keyword)
+                    || t.Email.ToLower().Contains(keyword)
+                    || t.Diachi.ToLower().Contains(keyword)
+                    || t.Dienthoai.ToLower().Contains(keyword));
             }
 
             foreach (var item in list)
             {
                 var row = dt.NewRow();
 
-                row["Mamh"] = item.Mamh;
-                row["Tenmh"] = item.Tenmh;
-                row["Sochi"] = item.Sochi;
+                row["Makhoa"] = item.Makhoa;
+                row["Tenkhoa"] = item.Tenkhoa;
+                row["Truongkhoa"] = item.Truongkhoa;
+                row["Photruongkhoa"] = item.Photruongkhoa;
+                row["Email"] = item.Email;
+                row["Diachi"] = item.Diachi;
+                row["Dienthoai"] = item.Dienthoai;
 
                 dt.Rows.Add(row);
             }
@@ -144,12 +160,16 @@ namespace OODBDemo.Repositories
         /// <param name="mamh"></param>
         /// <param name="tenmh"></param>
         /// <param name="sochi"></param>
-        public void add(string mamh, string tenmh, int sochi)
+        public void add(string makhoa, string tenkhoa, string truongkhoa, string photruongkhoa, string email, string diachi, string dienthoai)
         {
-            Monhoc obj = new Monhoc();
-            obj.Mamh = mamh;
-            obj.Tenmh = tenmh;
-            obj.Sochi = sochi;
+            Khoa obj = new Khoa();
+            obj.Makhoa = makhoa;
+            obj.Tenkhoa = tenkhoa;
+            obj.Truongkhoa = truongkhoa;
+            obj.Photruongkhoa = photruongkhoa;
+            obj.Email = email;
+            obj.Diachi = diachi;
+            obj.Dienthoai = dienthoai;
             try
             {
                 dbConnect.Open();
@@ -175,8 +195,8 @@ namespace OODBDemo.Repositories
             try
             {
                 dbConnect.Open();
-                Monhoc obj = (from Monhoc o in dbConnect.db
-                              where o.Mamh == ma
+                Khoa obj = (from Khoa o in dbConnect.db
+                              where o.Makhoa == ma
                               select o).FirstOrDefault();
                 if (obj != null)
                 {
@@ -201,18 +221,23 @@ namespace OODBDemo.Repositories
         /// <param name="mamh"></param>
         /// <param name="tenmh"></param>
         /// <param name="sochi"></param>
-        public void update(string mamh, string tenmh, int sochi)
+        public void update(string makhoa, string tenkhoa, string truongkhoa, string photruongkhoa, string email, string diachi, string dienthoai)
         {
             try
             {
                 dbConnect.Open();
-                Monhoc obj = (from Monhoc o in dbConnect.db
-                              where o.Mamh == mamh
+                Khoa obj = (from Khoa o in dbConnect.db
+                              where o.Makhoa == makhoa
                               select o).FirstOrDefault();
                 if (obj != null)
                 {
-                    obj.Tenmh = tenmh;
-                    obj.Sochi = sochi;
+                    //obj.Makhoa = makhoa;
+                    obj.Tenkhoa = tenkhoa;
+                    obj.Truongkhoa = truongkhoa;
+                    obj.Photruongkhoa = photruongkhoa;
+                    obj.Email = email;
+                    obj.Diachi = diachi;
+                    obj.Dienthoai = dienthoai;
 
                     dbConnect.db.Store(obj);
                 }
@@ -242,14 +267,14 @@ namespace OODBDemo.Repositories
             {
                 string sheetName = "Sheet1";
                 var excelFile = new ExcelQueryFactory(pathToExcelFile);
-                var excelSheet = from item in excelFile.Worksheet<Monhoc>(sheetName) select item;
+                var excelSheet = from item in excelFile.Worksheet<Khoa>(sheetName) select item;
                 foreach (var item in excelSheet)
                 {
-                    if (!this.isExist(item.Mamh))
+                    if (!this.isExist(item.Makhoa))
                     {
-                        if (this.isValid(item.Tenmh, item.Sochi))
+                        if (this.isValid(item.Makhoa, item.Tenkhoa, item.Truongkhoa, item.Photruongkhoa, item.Email, item.Diachi, item.Dienthoai))
                         {
-                            this.add(item.Mamh, item.Tenmh, item.Sochi);
+                            this.add(item.Makhoa, item.Tenkhoa, item.Truongkhoa, item.Photruongkhoa, item.Email, item.Diachi, item.Dienthoai);
                         }
                     }
                 }
@@ -273,14 +298,18 @@ namespace OODBDemo.Repositories
             {
 
                 ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
-                worksheet.Cell(1, 1).Value = "Mã MH";
-                worksheet.Cell(1, 2).Value = "Tên MH";
-                worksheet.Cell(1, 3).Value = "Số TC";
-                //MessageBox.Show(data.Rows[6].Cells[2].Value.ToString());
-                //return false;
+                worksheet.Cell(1, 1).Value = "Mã Khoa";
+                worksheet.Cell(1, 2).Value = "Tên Khoa";
+                worksheet.Cell(1, 3).Value = "Trưởng Khoa";
+                worksheet.Cell(1, 4).Value = "P. Trưởng Khoa";
+                worksheet.Cell(1, 5).Value = "Email";
+                worksheet.Cell(1, 6).Value = "Địa chỉ";
+                worksheet.Cell(1, 7).Value = "Điện thoại";
+
+
                 int rowCount = data.Rows.Count;
                 for (int r = 0; r < rowCount; r++)
-                    for (int c = 0; c < 3; c++)
+                    for (int c = 0; c < 7; c++)
                         worksheet.Cell(r + 2, c + 1).Value = data.Rows[r].Cells[c].Value.ToString();
 
                 excelPackage.Save();
@@ -302,10 +331,15 @@ namespace OODBDemo.Repositories
         /// <param name="tenmh"></param>
         /// <param name="sochi"></param>
         /// <returns></returns>
-        public bool isValid(string tenmh, int sochi)
+        public bool isValid(string makhoa, string tenkhoa, string truongkhoa, string photruongkhoa, string email, string diachi, string dienthoai)
         {
-            if (string.IsNullOrEmpty(tenmh)) return false;
-            if (sochi <= 0) return false;
+            if (string.IsNullOrEmpty(makhoa)) return false;
+            if (string.IsNullOrEmpty(tenkhoa)) return false;
+            if (string.IsNullOrEmpty(truongkhoa)) return false;
+            if (string.IsNullOrEmpty(photruongkhoa)) return false;
+            if (!email.isEmailAddress()) return false;
+            if (string.IsNullOrEmpty(diachi)) return false;
+            if (!dienthoai.isPhoneNumber()) return false;
             return true;
         }
 
@@ -316,7 +350,14 @@ namespace OODBDemo.Repositories
         /// <returns></returns>
         public bool isExist(string ma)
         {
-            Monhoc obj = this.getById(ma);
+            Khoa obj = this.getById(ma);
+            if (obj == null) return false;
+            return true;
+        }
+
+        public bool isExistName(string name)
+        {
+            Khoa obj = this.getByName(name);
             if (obj == null) return false;
             return true;
         }

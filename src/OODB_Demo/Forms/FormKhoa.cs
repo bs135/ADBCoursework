@@ -11,24 +11,28 @@ using OODBDemo.Entities;
 
 namespace OODBDemo
 {
-    public partial class FormMonHoc : Form
+    public partial class FormKhoa : Form
     {
-        private MonHocRepository _mh = new MonHocRepository();
+        private KhoaRepository _khoa = new KhoaRepository();
 
-        public FormMonHoc()
+        public FormKhoa()
         {
             InitializeComponent();
         }
 
         private void loadDataTable()
         {
-            DataTable table = _mh.getTable(txtKeyword.Text);
+            DataTable table = _khoa.getTable(txtKeyword.Text);
             dgvListData.Columns.Clear();
             dgvListData.DataSource = table;
 
-            dgvListData.Columns["Mamh"].HeaderText = "Mã MH";
-            dgvListData.Columns["Tenmh"].HeaderText = "Tên MH";
-            dgvListData.Columns["Sochi"].HeaderText = "Số TC";
+            dgvListData.Columns["Makhoa"].HeaderText = "Mã Khoa";
+            dgvListData.Columns["Tenkhoa"].HeaderText = "Tên Khoa";
+            dgvListData.Columns["Truongkhoa"].HeaderText = "Trưởng Khoa";
+            dgvListData.Columns["Photruongkhoa"].HeaderText = "P. Trưởng Khoa";
+            dgvListData.Columns["Email"].HeaderText = "Email";
+            dgvListData.Columns["Diachi"].HeaderText = "Địa chỉ";
+            dgvListData.Columns["Dienthoai"].HeaderText = "Điện thoại";
         }
 
         private void frmMonHoc_Load(object sender, EventArgs e)
@@ -38,18 +42,15 @@ namespace OODBDemo
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtMaMonHoc.Text))
+            if (_khoa.isValid(txtMaKhoa.Text, txtTenKhoa.Text, txtTruongKhoa.Text, txtPhoTruongKhoa.Text, txtEmail.Text, txtDiaChi.Text, txtDienThoai.Text))
             {
-                txtMaMonHoc.Text = "";
-                return;
-            }
-
-            if (_mh.isValid(txtTenMonHoc.Text, (int)numSoChi.Value))
-            {
-                _mh.add(_mh.getNewID(), txtTenMonHoc.Text, (int)numSoChi.Value);
+                if (_khoa.isExist(txtMaKhoa.Text))
+                {
+                    MessageBox.Show("Mã khoa đã tồn tại.");
+                    return;
+                }
+                _khoa.add(txtMaKhoa.Text, txtTenKhoa.Text, txtTruongKhoa.Text, txtPhoTruongKhoa.Text, txtEmail.Text, txtDiaChi.Text, txtDienThoai.Text);
                 loadDataTable();
-
-                MessageBox.Show("Thêm thành công.");
             }
             else
             {
@@ -59,13 +60,13 @@ namespace OODBDemo
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            _mh.update(txtMaMonHoc.Text, txtTenMonHoc.Text, (int)numSoChi.Value);
+            _khoa.update(txtMaKhoa.Text, txtTenKhoa.Text, txtTruongKhoa.Text, txtPhoTruongKhoa.Text, txtEmail.Text, txtDiaChi.Text, txtDienThoai.Text);
             loadDataTable();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            _mh.delete(txtMaMonHoc.Text);
+            _khoa.delete(txtMaKhoa.Text);
             loadDataTable();
         }
 
@@ -73,9 +74,13 @@ namespace OODBDemo
         {
             if (e.RowIndex >= 0)
             {
-                txtMaMonHoc.Text = dgvListData.Rows[e.RowIndex].Cells["Mamh"].Value.ToString();
-                txtTenMonHoc.Text = dgvListData.Rows[e.RowIndex].Cells["Tenmh"].Value.ToString();
-                numSoChi.Value = Convert.ToInt16(dgvListData.Rows[e.RowIndex].Cells["Sochi"].Value.ToString());
+                txtMaKhoa.Text = dgvListData.Rows[e.RowIndex].Cells["Makhoa"].Value.ToString();
+                txtTenKhoa.Text = dgvListData.Rows[e.RowIndex].Cells["Tenkhoa"].Value.ToString();
+                txtTruongKhoa.Text = dgvListData.Rows[e.RowIndex].Cells["Truongkhoa"].Value.ToString();
+                txtPhoTruongKhoa.Text = dgvListData.Rows[e.RowIndex].Cells["Photruongkhoa"].Value.ToString();
+                txtEmail.Text = dgvListData.Rows[e.RowIndex].Cells["Email"].Value.ToString();
+                txtDiaChi.Text = dgvListData.Rows[e.RowIndex].Cells["Diachi"].Value.ToString();
+                txtDienThoai.Text = dgvListData.Rows[e.RowIndex].Cells["Dienthoai"].Value.ToString();
             }
         }
 
@@ -93,7 +98,7 @@ namespace OODBDemo
             DialogResult re = ofd.ShowDialog();
             if (re == DialogResult.OK)
             {
-                if (_mh.importFromExcel(ofd.FileName))
+                if (_khoa.importFromExcel(ofd.FileName))
                 {
                     loadDataTable();
                 }
@@ -113,7 +118,7 @@ namespace OODBDemo
             DialogResult re = ofd.ShowDialog();
             if (re == DialogResult.OK)
             {
-                if (_mh.exportFromExcel(dgvListData, ofd.FileName))
+                if (_khoa.exportFromExcel(dgvListData, ofd.FileName))
                 {
                     MessageBox.Show("Xuất thành công.");
                 }

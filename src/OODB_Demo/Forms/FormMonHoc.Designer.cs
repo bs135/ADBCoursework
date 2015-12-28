@@ -38,6 +38,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgvListData = new System.Windows.Forms.DataGridView();
+            this.ma = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnExportExcel = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -51,7 +52,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtMaMonHoc = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.ma = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlTitle.SuspendLayout();
             this.pnlSearch.SuspendLayout();
             this.grpSearch.SuspendLayout();
@@ -133,6 +133,7 @@
             this.btnSearch.TabIndex = 12;
             this.btnSearch.Text = "Tìm";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // panel1
             // 
@@ -156,6 +157,8 @@
             // 
             // dgvListData
             // 
+            this.dgvListData.AllowUserToAddRows = false;
+            this.dgvListData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvListData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvListData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ma});
@@ -169,6 +172,13 @@
             this.dgvListData.TabIndex = 0;
             this.dgvListData.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvListData_CellMouseClick);
             this.dgvListData.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvListData_RowHeaderMouseClick);
+            // 
+            // ma
+            // 
+            this.ma.DataPropertyName = "ma";
+            this.ma.HeaderText = "Mã";
+            this.ma.Name = "ma";
+            this.ma.ReadOnly = true;
             // 
             // panel2
             // 
@@ -305,6 +315,7 @@
             this.txtMaMonHoc.Location = new System.Drawing.Point(96, 11);
             this.txtMaMonHoc.Margin = new System.Windows.Forms.Padding(2);
             this.txtMaMonHoc.Name = "txtMaMonHoc";
+            this.txtMaMonHoc.ReadOnly = true;
             this.txtMaMonHoc.Size = new System.Drawing.Size(247, 20);
             this.txtMaMonHoc.TabIndex = 16;
             // 
@@ -317,13 +328,6 @@
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 15;
             this.label1.Text = "Mã Môn học";
-            // 
-            // ma
-            // 
-            this.ma.DataPropertyName = "ma";
-            this.ma.HeaderText = "Mã";
-            this.ma.Name = "ma";
-            this.ma.ReadOnly = true;
             // 
             // FormMonHoc
             // 

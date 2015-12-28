@@ -14,6 +14,8 @@
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
     <PublishUrl>C:\Users\Administrator\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,8 +32,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -94,7 +94,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -146,6 +146,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBAccess\DBConnect.cs" />
+    <Compile Include="Forms\FormKhoa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormKhoa.Designer.cs">
+      <DependentUpon>FormKhoa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormGiaoVien.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,8 +170,9 @@
     <Compile Include="Forms\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\GiaoVienRepository.cs" />
     <Compile Include="Repositories\MonHocRepository.cs" />
+    <Compile Include="Repositories\GiaoVienRepository.cs" />
+    <Compile Include="Repositories\KhoaRepository.cs" />
     <Compile Include="Utilities\Checkinput.cs" />
     <Compile Include="Entities\Chuyennghanh.cs" />
     <Compile Include="Forms\Dangnhap.cs">
@@ -176,12 +183,6 @@
     </Compile>
     <Compile Include="Entities\Diemsv.cs" />
     <Compile Include="Utilities\kiemtrarangbuoc.cs" />
-    <Compile Include="Forms\Nhapttsv.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Nhapttsv.Designer.cs">
-      <DependentUpon>Nhapttsv.cs</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Giaovien.cs" />
     <Compile Include="Entities\Hanhkiem.cs" />
     <Compile Include="DBAccess\ketnoicsdl.cs" />
@@ -197,6 +198,9 @@
     <Compile Include="DBAccess\Thaotaccsdl.cs" />
     <Compile Include="Repositories\User.cs" />
     <Compile Include="Utilities\Utils.cs" />
+    <EmbeddedResource Include="Forms\FormKhoa.resx">
+      <DependentUpon>FormKhoa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormGiaoVien.resx">
       <DependentUpon>FormGiaoVien.cs</DependentUpon>
     </EmbeddedResource>
@@ -205,9 +209,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormMonHoc.resx">
       <DependentUpon>FormMonHoc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Nhapttsv.resx">
-      <DependentUpon>Nhapttsv.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>

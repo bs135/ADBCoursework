@@ -10,8 +10,9 @@ namespace OODBDemo
         public string Ma { get; set; }
         public string Hoten { get; set; }
         public string Ngaysinh { get; set; }
+        public string Cmnd { get; set; }
         public string Gioitinh { get; set; }
         public string Diachi { get; set; }
-        public int Dienthoai { get; set; }
+        public string Dienthoai { get; set; }
     }
 }

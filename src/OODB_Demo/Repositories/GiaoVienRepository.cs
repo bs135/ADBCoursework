@@ -11,6 +11,7 @@ using System.IO;
 using OfficeOpenXml;
 using OODBDemo.DBAccess;
 using OODBDemo.Entities;
+using OODBDemo.Utilities;
 
 namespace OODBDemo.Repositories
 {
@@ -18,6 +19,36 @@ namespace OODBDemo.Repositories
     {
         DBConnect dbConnect = new DBConnect();
 
+
+        public string getNewID()
+        {
+            Giaovien obj = null;
+            string newID = "GV0001";
+            try
+            {
+                dbConnect.Open();
+                obj = (from Giaovien p in dbConnect.db
+                             orderby p.Ma descending
+                             select p).FirstOrDefault();
+                dbConnect.Close();
+
+                int i = 0;
+                if (obj != null && int.TryParse(obj.Ma.Substring(2), out i))
+                {
+                    newID = "GV" + (i + 1).ToString("D4");
+                }
+                return newID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return newID;
+            }
+            finally
+            {
+                dbConnect.Close();
+            }
+        }
 
 
         /// <summary>
@@ -48,14 +79,36 @@ namespace OODBDemo.Repositories
             return obj;
         }
 
+        public Giaovien getByCmnd(string cmnd)
+        {
+            Giaovien obj = null;
+            try
+            {
+                dbConnect.Open();
+                obj = (from Giaovien o in dbConnect.db
+                       where o.Cmnd == cmnd
+                       select o).FirstOrDefault();
+                dbConnect.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                dbConnect.Close();
+            }
+
+            return obj;
+        }
 
         /// <summary>
         /// lấy danh sách môn học
         /// </summary>
         /// <returns></returns>
-        public IList<Giaovien> getAll()
+        public IEnumerable<Giaovien> getAll()
         {
-            IList<Giaovien> list = new List<Giaovien>();
+            IEnumerable<Giaovien> list = new List<Giaovien>();
             try
             {
                 dbConnect.Open();
@@ -81,7 +134,7 @@ namespace OODBDemo.Repositories
         /// lấy danh sách môn học theo dạng bảng
         /// </summary>
         /// <returns></returns>
-        public DataTable getTable()
+        public DataTable getTable(string keyword = "")
         {
             DataTable dt = new DataTable();
 
@@ -95,11 +148,26 @@ namespace OODBDemo.Repositories
             dt.Columns.Add("Email");
             dt.Columns.Add("Makhoa");
             dt.Columns.Add("Trinhdo");
-            dt.Columns.Add("Phanloai");
+            dt.Columns.Add("Cmnd");
             dt.Columns.Add("Quoctich");
             dt.Columns.Add("Nangkhieu");
 
-            IList<Giaovien> list = this.getAll();
+            IEnumerable<Giaovien> list = this.getAll();
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                keyword = keyword.Trim().ToLower();
+                list = list.Where(t => t.Ma.ToLower().Contains(keyword) 
+                    || t.Hoten.ToLower().Contains(keyword)
+                    || t.Diachi.ToLower().Contains(keyword)
+                    || t.Dienthoai.ToLower().Contains(keyword)
+                    || t.Email.ToLower().Contains(keyword)
+                    || t.Makhoa.ToLower().Contains(keyword)
+                    || t.Trinhdo.ToLower().Contains(keyword)
+                    || t.Cmnd.ToLower().Contains(keyword)
+                    || t.Quoctich.ToLower().Contains(keyword)
+                    || t.Nangkhieu.ToLower().Contains(keyword));
+            }
 
             foreach (var item in list)
             {
@@ -115,7 +183,7 @@ namespace OODBDemo.Repositories
                 row["Email"] = item.Email;
                 row["Makhoa"] = item.Makhoa;
                 row["Trinhdo"] = item.Trinhdo;
-                row["Phanloai"] = item.Phanloai;
+                row["Cmnd"] = item.Cmnd;
                 row["Quoctich"] = item.Quoctich;
                 row["Nangkhieu"] = item.Nangkhieu;
 
@@ -133,7 +201,7 @@ namespace OODBDemo.Repositories
         /// <param name="mamh"></param>
         /// <param name="tenmh"></param>
         /// <param name="sochi"></param>
-        public void add(string ma, string hoten, string ngaysinh, string gioitinh, string diachi, int dienthoai, string email, string makhoa, string trinhdo, string phanloai, string quoctich, string nangkhieu)
+        public void add(string ma, string hoten, string ngaysinh, string gioitinh, string diachi, string dienthoai, string email, string makhoa, string trinhdo, string cmnd, string quoctich, string nangkhieu)
         {
             Giaovien obj = new Giaovien();
             obj.Ma = ma;
@@ -146,7 +214,7 @@ namespace OODBDemo.Repositories
             obj.Email = email;
             obj.Makhoa = makhoa;
             obj.Trinhdo = trinhdo;
-            obj.Phanloai = phanloai;
+            obj.Cmnd = cmnd;
             obj.Quoctich = quoctich;
             obj.Nangkhieu = nangkhieu;
 
@@ -201,7 +269,7 @@ namespace OODBDemo.Repositories
         /// <param name="mamh"></param>
         /// <param name="tenmh"></param>
         /// <param name="sochi"></param>
-        public void update(string ma, string hoten, string ngaysinh, string gioitinh, string diachi, int dienthoai, string email, string makhoa, string trinhdo, string phanloai, string quoctich, string nangkhieu)
+        public void update(string ma, string hoten, string ngaysinh, string gioitinh, string diachi, string dienthoai, string email, string makhoa, string trinhdo, string cmnd, string quoctich, string nangkhieu)
         {
             try
             {
@@ -220,7 +288,7 @@ namespace OODBDemo.Repositories
                     obj.Email = email;
                     obj.Makhoa = makhoa;
                     obj.Trinhdo = trinhdo;
-                    obj.Phanloai = phanloai;
+                    obj.Cmnd = cmnd;
                     obj.Quoctich = quoctich;
                     obj.Nangkhieu = nangkhieu;
 
@@ -257,9 +325,9 @@ namespace OODBDemo.Repositories
                 {
                     if (!this.isExist(item.Ma))
                     {
-                        if (this.isValid(item.Ma, item.Hoten, item.Ngaysinh, item.Gioitinh, item.Diachi, item.Dienthoai, item.Email, item.Makhoa, item.Trinhdo, item.Phanloai, item.Quoctich, item.Nangkhieu))
+                        if (this.isValid(item.Hoten, item.Ngaysinh, item.Gioitinh, item.Diachi, item.Dienthoai, item.Email, item.Makhoa, item.Trinhdo, item.Cmnd, item.Quoctich, item.Nangkhieu))
                         {
-                            this.add(item.Ma, item.Hoten, item.Ngaysinh, item.Gioitinh, item.Diachi, item.Dienthoai, item.Email, item.Makhoa, item.Trinhdo, item.Phanloai, item.Quoctich, item.Nangkhieu);
+                            this.add(item.Ma, item.Hoten, item.Ngaysinh, item.Gioitinh, item.Diachi, item.Dienthoai, item.Email, item.Makhoa, item.Trinhdo, item.Cmnd, item.Quoctich, item.Nangkhieu);
                         }
                     }
                 }
@@ -298,7 +366,7 @@ namespace OODBDemo.Repositories
                 //MessageBox.Show(data.Rows[6].Cells[2].Value.ToString());
                 //return false;
                 int rowCount = data.Rows.Count;
-                for (int r = 0; r < rowCount - 1; r++)
+                for (int r = 0; r < rowCount; r++)
                     for (int c = 0; c < 12; c++)
                         worksheet.Cell(r + 2, c + 1).Value = data.Rows[r].Cells[c].Value.ToString();
 
@@ -322,20 +390,17 @@ namespace OODBDemo.Repositories
         /// <param name="tenmh"></param>
         /// <param name="sochi"></param>
         /// <returns></returns>
-        public bool isValid(string ma, string hoten, string ngaysinh, string gioitinh, string diachi, int dienthoai, string email, string makhoa, string trinhdo, string phanloai, string quoctich, string nangkhieu)
+        public bool isValid(string hoten, string ngaysinh, string gioitinh, string diachi, string dienthoai, string email, string makhoa, string trinhdo, string cmnd, string quoctich, string nangkhieu)
         {
-            Checkinput checkinput = new Checkinput();
-
-            if (string.IsNullOrEmpty(ma)) return false;
             if (string.IsNullOrEmpty(hoten)) return false;
-            if (string.IsNullOrEmpty(ngaysinh)) return false; if (checkinput.kiemtrangay(ngaysinh) == 0) return false;
+            if (string.IsNullOrEmpty(ngaysinh)) return false; if (!ngaysinh.isDate()) return false;
             if (string.IsNullOrEmpty(gioitinh)) return false;
             if (string.IsNullOrEmpty(diachi)) return false;
-            if (dienthoai <= 0) return false; if (checkinput.kiemtra_dienthoai(dienthoai.ToString()) == 0) return false;
-            if (string.IsNullOrEmpty(email)) return false;
+            if (!dienthoai.isPhoneNumber()) return false;
+            if (!email.isEmailAddress()) return false;
             if (string.IsNullOrEmpty(makhoa)) return false;
             if (string.IsNullOrEmpty(trinhdo)) return false;
-            if (string.IsNullOrEmpty(phanloai)) return false;
+            if (string.IsNullOrEmpty(cmnd)) return false;
             if (string.IsNullOrEmpty(quoctich)) return false;
             if (string.IsNullOrEmpty(nangkhieu)) return false;
             return true;
@@ -346,9 +411,9 @@ namespace OODBDemo.Repositories
         /// </summary>
         /// <param name="mamh"></param>
         /// <returns></returns>
-        public bool isExist(string ma)
+        public bool isExist(string cmnd)
         {
-            Giaovien obj = this.getById(ma);
+            Giaovien obj = this.getByCmnd(cmnd);
             if (obj == null) return false;
             return true;
         }

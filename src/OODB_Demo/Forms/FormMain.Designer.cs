@@ -31,6 +31,7 @@
             this.btnNhapTTVS = new System.Windows.Forms.Button();
             this.btnMonHoc = new System.Windows.Forms.Button();
             this.btnGiaoVien = new System.Windows.Forms.Button();
+            this.btnKhoa = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnNhapTTVS
@@ -63,11 +64,22 @@
             this.btnGiaoVien.UseVisualStyleBackColor = true;
             this.btnGiaoVien.Click += new System.EventHandler(this.btnGiaoVien_Click);
             // 
+            // btnKhoa
+            // 
+            this.btnKhoa.Location = new System.Drawing.Point(272, 92);
+            this.btnKhoa.Name = "btnKhoa";
+            this.btnKhoa.Size = new System.Drawing.Size(174, 23);
+            this.btnKhoa.TabIndex = 3;
+            this.btnKhoa.Text = "Khoa";
+            this.btnKhoa.UseVisualStyleBackColor = true;
+            this.btnKhoa.Click += new System.EventHandler(this.btnKhoa_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(490, 290);
+            this.Controls.Add(this.btnKhoa);
             this.Controls.Add(this.btnGiaoVien);
             this.Controls.Add(this.btnMonHoc);
             this.Controls.Add(this.btnNhapTTVS);
@@ -82,5 +94,6 @@
         private System.Windows.Forms.Button btnNhapTTVS;
         private System.Windows.Forms.Button btnMonHoc;
         private System.Windows.Forms.Button btnGiaoVien;
+        private System.Windows.Forms.Button btnKhoa;
     }
 }

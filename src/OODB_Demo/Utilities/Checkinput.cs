@@ -237,7 +237,7 @@ namespace OODBDemo
             }
         
         }
-        public int kiemtra_sinhvien(int cmdd)
+        public int kiemtra_sinhvien(string cmdd)
         {
 
             try
@@ -257,7 +257,7 @@ namespace OODBDemo
                 ketnoicsdl.db.Close();
             }
         }
-        public int kiemtra_sinhvien_up(int cmdd,string masv)
+        public int kiemtra_sinhvien_up(string cmdd,string masv)
         {
 
             try
