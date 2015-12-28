@@ -16,6 +16,7 @@ namespace OODBDemo
         private FormMonHoc frmMonHoc = new FormMonHoc();
         private FormGiaoVien frmGiaoVien = new FormGiaoVien();
         private FormKhoa frmKhoa = new FormKhoa();
+        private FormDiem frmDiem = new FormDiem();
 
         public FormMain()
         {
@@ -40,6 +41,11 @@ namespace OODBDemo
         private void btnKhoa_Click(object sender, EventArgs e)
         {
             frmKhoa.ShowDialog();
+        }
+
+        private void btnDiem_Click(object sender, EventArgs e)
+        {
+            frmDiem.ShowDialog();
         }
     }
 }

@@ -32,6 +32,7 @@
             this.btnMonHoc = new System.Windows.Forms.Button();
             this.btnGiaoVien = new System.Windows.Forms.Button();
             this.btnKhoa = new System.Windows.Forms.Button();
+            this.btnDiem = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnNhapTTVS
@@ -74,11 +75,22 @@
             this.btnKhoa.UseVisualStyleBackColor = true;
             this.btnKhoa.Click += new System.EventHandler(this.btnKhoa_Click);
             // 
+            // btnDiem
+            // 
+            this.btnDiem.Location = new System.Drawing.Point(272, 121);
+            this.btnDiem.Name = "btnDiem";
+            this.btnDiem.Size = new System.Drawing.Size(174, 23);
+            this.btnDiem.TabIndex = 4;
+            this.btnDiem.Text = "Điểm";
+            this.btnDiem.UseVisualStyleBackColor = true;
+            this.btnDiem.Click += new System.EventHandler(this.btnDiem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(490, 290);
+            this.Controls.Add(this.btnDiem);
             this.Controls.Add(this.btnKhoa);
             this.Controls.Add(this.btnGiaoVien);
             this.Controls.Add(this.btnMonHoc);
@@ -95,5 +107,6 @@
         private System.Windows.Forms.Button btnMonHoc;
         private System.Windows.Forms.Button btnGiaoVien;
         private System.Windows.Forms.Button btnKhoa;
+        private System.Windows.Forms.Button btnDiem;
     }
 }

@@ -146,6 +146,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBAccess\DBConnect.cs" />
+    <Compile Include="Forms\FormDiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormDiem.designer.cs">
+      <DependentUpon>FormDiem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormKhoa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,7 @@
     <Compile Include="Forms\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\DiemRepository.cs" />
     <Compile Include="Repositories\MonHocRepository.cs" />
     <Compile Include="Repositories\GiaoVienRepository.cs" />
     <Compile Include="Repositories\KhoaRepository.cs" />
@@ -198,6 +205,9 @@
     <Compile Include="DBAccess\Thaotaccsdl.cs" />
     <Compile Include="Repositories\User.cs" />
     <Compile Include="Utilities\Utils.cs" />
+    <EmbeddedResource Include="Forms\FormDiem.resx">
+      <DependentUpon>FormDiem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormKhoa.resx">
       <DependentUpon>FormKhoa.cs</DependentUpon>
     </EmbeddedResource>
