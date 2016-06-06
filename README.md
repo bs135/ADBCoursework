@@ -1,2 +1,0 @@
-# dba_coursework_group6
-dba_coursework_group6
