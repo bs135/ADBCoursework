@@ -198,5 +198,5 @@ FakesAssemblies/
 
 
 #####################
-!**/libraries/*
-!**/libraries/
+!**/libraries/ExcelPackage/*
+!**/libraries/db4o-net-4.0/*
